@@ -127,13 +127,16 @@ $(document).ready(function () {
 <h2>Tidyverse</h2>
 <p>Tidyverse is relatively new part of R ecosystem with its own rules. Tidyverse libraries stem from common philosophy and are designed to work together. Tidyverse starts from the structure of an data frame (a tibble in tidy slang) and its functions use tibble as input and return tibble as output. Tidyverse is designed to work with pipes <code>%&gt;%</code>. Tidyverse has dedicated graphis system based on “grammar of graphics” ggplot2 library and its many siblings.</p>
 <p>Tidyverse on osa R-i ökosüsteemist, kus kehtivad omad reeglid. Tidyverse raamatukogud lähtuvad ühtsest filosoofiast ja töötavad hästi koos. Tidyverse algab andmetabeli struktuurist ja selle funktsioonid võtavad reeglina sisse õige struktuuriga tibble ja väljastavad samuti tibble, mis sobib hästi järgmise tidyverse funktsiooni sisendiks. Seega on tidyverse hästi sobiv läbi torude <code>%&gt;%</code> laskmiseks. Tidyverse-ga sobib hästi kokku ka “ggplot2” graafikasüsteem.</p>
-<pre class="r"><code>library(tidyverse)
-library(stringr)
-library(nycflights13)</code></pre>
 </div>
 <div id="create-rstudio-project" class="section level2">
 <h2>Create RStudio project</h2>
 <p>Create RStudio project from GitHub repo. <em>First</em>, create GitHub repo and call it <code>dplyr_demo</code>. <em>Second</em>, clone this repo into RStudio project. Detailed instructions can be found <a href="https://rstats-tartu.github.io/createrstudioprojectfromgithub/">here</a>.</p>
+</div>
+<div id="load-libraries" class="section level2">
+<h2>Load libraries</h2>
+<pre class="r"><code>library(tidyverse)
+library(stringr)
+library(nycflights13)</code></pre>
 </div>
 <div id="download-example-dataset-from-github" class="section level2">
 <h2>Download example dataset from GitHub</h2>
@@ -260,7 +263,7 @@ storms %&gt;%
 <h3><code>mutate()</code></h3>
 <p>Mutate põhikasutus on siiski uute veergude tekitamine, mis võtavad endale inputi rea kaupa. Seega tabeli ridade arv ei muutu.</p>
 <p>Mutate adds new columns (and its close cousin <code>transmute()</code> creates new columns while losing the previous columns).</p>
-<p>Salary has usually very skewed distribution, no-one ever get average salary. Log-transformation helps sometimes to normalise such distributions with long tail on the right side. Here we firstly create a new column, which contains log10-transformed values from the <em>wage</em> column, and name it <em>log_wage</em>. We evaluate the outcome of transformation visually. Khmm, we have too few falues…</p>
+<p>Salary has usually very skewed distribution, no-one ever gets average salary. Log-transformation helps sometimes to normalise such distributions with long tail on the right side. Here we firstly create a new column, which contains log10-transformed values from the <em>wage</em> column, and name it <em>log_wage</em>. We evaluate the outcome of transformation visually. Khmm, we have too few falues…</p>
 <pre class="r"><code>salary_long %&gt;% 
   mutate(log_wage = log10(wage)) %&gt;% 
   gather(key, value = &quot;wage&quot;, -Year, -occupation) %&gt;% 
