@@ -7,6 +7,11 @@ output:
       theme: readable
 ---
 
+```{r, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+
 ## Tidyverse
 
 Tidyverse is relatively new part of R ecosystem with its own rules.
