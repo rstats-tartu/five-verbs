@@ -14,26 +14,13 @@ knitr::opts_chunk$set(eval = FALSE)
 
 ## Tidyverse
 
-Tidyverse is relatively new part of R ecosystem with its own rules.
-Tidyverse libraries stem from common philosophy and are designed to work together.
-Tidyverse starts from the structure of an data frame (a tibble in tidy slang) and its functions use tibble as input and return tibble as output.
-Tidyverse is designed to work with pipes `%>%`.
-Tidyverse has dedicated graphis system based on "grammar of graphics" ggplot2 library and its many siblings.
-
 Tidyverse on osa R-i ökosüsteemist, kus kehtivad omad reeglid. 
 Tidyverse raamatukogud lähtuvad ühtsest filosoofiast ja töötavad hästi koos. 
 Tidyverse algab andmetabeli struktuurist ja selle funktsioonid võtavad reeglina sisse õige struktuuriga tibble ja väljastavad samuti tibble, mis sobib hästi järgmise tidyverse funktsiooni sisendiks. 
 Seega on tidyverse hästi sobiv läbi torude `%>%` laskmiseks. 
 Tidyverse-ga sobib hästi kokku ka "ggplot2" graafikasüsteem.
 
-## Create RStudio project 
-Create RStudio project from GitHub repo. 
-*First*, create GitHub repo and call it `dplyr_demo`. 
-*Second*, clone this repo into RStudio project. 
-Detailed instructions can be found [here](https://rstats-tartu.github.io/createrstudioprojectfromgithub/).
-
-## Load libraries
-
+**Laadime vajalikud raamatukogud**
 ```{r}
 library(tidyverse)
 library(stringr)
@@ -41,40 +28,27 @@ library(nycflights13)
 ```
 
 
-## Download example dataset from GitHub
-Dataset is called **Average monthly wage with additional payments** and you can find it in the healthcare_personnel_salary.tsv file in [rstats-tartu/salary](https://github.com/rstats-tartu/salary) repo. 
+**Laadi GitHub-ist alla näidisandmed**
+Andmeseti nimi on **Average monthly wage with additional payments** ja asub failis healthcare_personnel_salary.tsv [rstats-tartu/salary](https://github.com/rstats-tartu/salary) repos. 
 
->Dataset contains salary data of full- and part-time health care personnel of different occupations from Estonian Health Statistics database. 
+>Andmesetis on os ja täistööajaga tervishoiutöötajate palgaandmed Eesti tervisestatistika andmebaasist. 
 
-Values are in euros.
+Andmeseti väärtused on eurodes.
 
-**Download healthcare_personnel_salary.tsv file**:
+**Impordi healthcare_personnel_salary.tsv fail**. 
+Andmed on tabidega eraldatud formaadis, miska võime kasutada `read_tsv()` funktsiooni "readr" library-st:
 ```{r}
-## when file is missing download it
-if(!file.exists("data/healthcare_personnel_salary.tsv")){
-  
-  ## when data folder is missing, create it
-  if(!dir.exists("data")){
-    dir.create("data")
-  }
-  
-  url <- "https://raw.githubusercontent.com/rstats-tartu/datasets/master/healthcare_personnel_salary.tsv"
-  
-  download.file(url, "data/healthcare_personnel_salary.tsv")
-}
-```
+lifeexpectancy <- boulder::json_to_df("~/Downloads/TE753-2.json")
+lifeexpectancy
+gather(lifeexpectancy, Gender, lifeexpectancy, 4:5) %>% 
+  spread(County, lifeexpectancy)
 
-
-**Import healthcare_personnel_salary.tsv file**. 
-Data is in the tab separated format, so we use `read_csv()` function from "readr" library:
-```{r}
-salary <- read_tsv("data/healthcare_personnel_salary.tsv")
 ## we also prepare label 
-label <- "Average monthly wage\nwith additional payments"
+label <- "Tervena elada jäänud aastad soo, vanuse ja maakonna järgi"
 ```
 
 
-## Changing data from wide to long
+## Muudame andmed laiast pikka formaati
 
 Tidyverse expects your data in the long format: each row contains one value.
 Therefore it's important to convert your wide data to the long format.
